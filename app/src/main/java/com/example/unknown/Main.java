@@ -66,6 +66,9 @@ public class Main {
                     ch.add(c);
                 }
             }
+            if (ch.size() == 1) {
+                ch.add(ch.get(0));
+            }
             //Drop middle elements from array
             for (int i = 0; i <= ch.size(); i++) {
                 if (ch.size() > 2) {

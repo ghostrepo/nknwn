@@ -25,32 +25,33 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Welcome to Online IDE!! Happy Coding :)");
         File in = new File("com/example/unknown/input.txt");
-        File out = null;
+//        File out = null;
         ArrayList<Integer> output = new ArrayList<>();
+        int calibration;
 
         try {
-            output = stringToIntArray(calibrate(in));
+            output = calibrate(in);
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
         }
 
-        int calibration = sum(output);
+        calibration = sum(output);
         System.out.println("The sum of all calibration values is: " + calibration);
 
-        try {
-            out = writeToFile(output);
-        } catch (IOException io) {
-            System.out.println("Error: IO Exception. " + io);
-        }
-
-        assert out != null;
-        if (out.exists()) {
-            System.out.println("File created successfully");
-        }
+//        try {
+//            out = writeToFile(output);
+//        } catch (IOException io) {
+//            System.out.println("Error: IO Exception. " + io);
+//        }
+//
+//        assert out != null;
+//        if (out.exists()) {
+//            System.out.println("File created successfully");
+//        }
     }
 
-    public static ArrayList<String> calibrate(File input) throws FileNotFoundException {
-        ArrayList<String> stringArray = new ArrayList<>();
+    public static ArrayList<Integer> calibrate(File input) throws FileNotFoundException {
+        ArrayList<Integer> intArray = new ArrayList<>();
         Scanner s = new Scanner(input);
 
         //Parse through each line
@@ -66,59 +67,52 @@ public class Main {
                 }
             }
             //Drop middle elements from array
-            for (int i = 0; i < ch.size(); i++) {
+            for (int i = 0; i <= ch.size(); i++) {
                 if (ch.size() > 2) {
                     ch.remove(1);
                 }
             }
             //Add new integer array to main ArrayList
-            System.out.print(ch.toString() + "\n");
-            stringArray.add(ch.toString());
+            int cali = Integer.parseInt(ch.toString().replaceAll("[\\D]", ""));
+            System.out.println("Value: " + cali);
+            intArray.add(cali);
         }
-
-        return stringArray;
-    }
-
-    public static File writeToFile(ArrayList<Integer> list) throws IOException {
-        File outputFile = new File("com/example/unknown/output.txt");
-        if (outputFile.exists()) {
-            if (outputFile.delete()) {
-                System.out.println("Stale file deleted.");
-            } else {
-                System.out.println("Unable to delete output file.");
-            }
-        }
-
-        FileWriter writer = null;
-        if (outputFile.createNewFile()) {
-            writer = new FileWriter(outputFile, true);
-            for (Integer i: list) {
-                System.out.println(i);
-                writer.write(i + "\n");
-            }
-        } else {
-            System.out.println("Failure to create output file");
-        }
-
-        if (writer != null) {
-            writer.close();
-        }
-        return outputFile;
-    }
-
-    public static ArrayList<Integer> stringToIntArray(ArrayList<String> stringArray) {
-        ArrayList<Integer> intArray = new ArrayList<>();
-
 
         return intArray;
     }
 
-    public static Integer sum(ArrayList<Integer> values) {
-        int sum = 0;
+//    public static File writeToFile(ArrayList<Integer> list) throws IOException {
+//        File outputFile = new File("com/example/unknown/output.txt");
+//        if (outputFile.exists()) {
+//            if (outputFile.delete()) {
+//                System.out.println("Stale file deleted.");
+//            } else {
+//                System.out.println("Unable to delete output file.");
+//            }
+//        }
+//
+//        FileWriter writer = null;
+//        if (outputFile.createNewFile()) {
+//            writer = new FileWriter(outputFile, true);
+//            for (Integer i: list) {
+//                writer.write(i + "\n");
+//            }
+//        } else {
+//            System.out.println("Failure to create output file");
+//        }
+//
+//        if (writer != null) {
+//            writer.close();
+//        }
+//        return outputFile;
+//    }
+
+    public static int sum(ArrayList<Integer> values) {
+        int total = 0;
         for (Integer num: values) {
-            sum += num;
+            total += num;
         }
 
-        return sum;
+        return total;
     }
 }

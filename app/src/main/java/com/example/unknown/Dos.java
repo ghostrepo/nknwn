@@ -2,6 +2,8 @@ package com.example.unknown;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -20,13 +22,12 @@ public class Dos {
     public static final String eight = "eight";
     public static final String nine = "nine";
 
-
     public static void main(String[] args) {
         System.out.println("Welcome to Online IDE!! Happy Coding :)");
         File in = new File("com/example/unknown/input.txt");
 //        File out = null;
         ArrayList<Integer> output = new ArrayList<>();
-        int calibration;
+        int calibration = 0;
         words.add(one);
         words.add(two);
         words.add(three);
@@ -90,72 +91,49 @@ public class Dos {
     public static ArrayList<Integer> calibrate(File input) throws FileNotFoundException {
         ArrayList<Integer> intArray = new ArrayList<>();
         Scanner s = new Scanner(input);
-        int lineIndex = 0;
         //Parse through each line
         while (s.hasNextLine()) {
-//            System.out.println("Line " + lineIndex);
             //Get line and save to char array
             char[] array = s.nextLine().toCharArray();
             ArrayList<Character> ch = new ArrayList<>();
             String charString = new String(array);
-            System.out.println("------------------Start----------------------");
-            System.out.println("char string: " + charString);
             for (char c : array) {
                 ch.add(c);
             }
-            //Check for number strings in line
+            //Check for number strings in line and replace with int value
             for (String str: words) {
-                int position = charString.indexOf(str);
-                if (charString.contains(str)) {
+                while (charString.contains(str)) {
                     if (findWord(array, str.toCharArray())) {
-                        System.out.println("length of array: " + ch.size());
-                        System.out.println("word: " + sToC(str) + " at " + position);
-
-                        ch.add(position, (sToC(str)));
-                        for (int i = 0; i < str.length(); i++) {
-                            ch.remove(position + 1);
-                        }
+                        int position = charString.indexOf(str);
+                        ch.add(position + 1, (sToC(str)));
+                        ch.remove(position + 2);
                         charString = new String(toArray(ch));
-                        if(charString.contains(str)) {
-                            position = charString.indexOf(str);
-                            ch.add(position, (sToC(str)));
-                            for (int i = 0; i < str.length(); i++) {
-                                ch.remove(position + 1);
-                            }
-                        }
-                        charString = new String(toArray(ch));
-                        System.out.println("new char string: " + charString);
                     }
                 }
             }
-            //Create integer array from each line of input
+            //Remove characters from array
             for (int i = ch.size() - 1; i > -1; i--) {
                 if (!Character.isDigit(ch.get(i))) {
                     ch.remove(i);
                 }
             }
-            System.out.println(ch);
-//            Account for single-digit lines
+            //Account for single-digit lines
             if (ch.size() == 1) {
                 ch.add(ch.get(0));
             }
-//            Drop middle elements from array
-            for (int i = 0; i <= ch.size(); i++) {
-                if (ch.size() > 2) {
-                    ch.remove(1);
-                }
+            //Drop middle elements from array
+            while (ch.size() > 2) {
+                ch.remove(1);
             }
             //Add new integer array to main ArrayList
             int cali = Integer.parseInt(ch.toString().replaceAll("\\D", ""));
             System.out.println("Value: " + cali);
             intArray.add(cali);
-            lineIndex++;
-            System.out.println("------------------End----------------------");
         }
         return intArray;
     }
 
-//    public static File writeToFile(ArrayList<Integer> list) throws IOException {
+//    public static File writeToFile(ArrayList<Integer> list) throws IOException, IOException {
 //        File outputFile = new File("com/example/unknown/output.txt");
 //        if (outputFile.exists()) {
 //            if (outputFile.delete()) {

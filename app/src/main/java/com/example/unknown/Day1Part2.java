@@ -2,15 +2,10 @@ package com.example.unknown;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
-import java.util.StringJoiner;
 
-public class Dos {
-    public static final String TAG = "Testing";
+public class Day1Part2 {
     public static final ArrayList<String> words = new ArrayList<>();
     public static final String one = "one";
     public static final String two = "two";
@@ -23,7 +18,6 @@ public class Dos {
     public static final String nine = "nine";
 
     public static void main(String[] args) {
-        System.out.println("Welcome to Online IDE!! Happy Coding :)");
         File in = new File("com/example/unknown/input.txt");
 //        File out = null;
         ArrayList<Integer> output = new ArrayList<>();

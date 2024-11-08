@@ -25,22 +25,30 @@ public class Day2 {
     }
 
     private static void cube(File input) throws FileNotFoundException {
-        int id = 0;
         Scanner s = new Scanner(input);
         ArrayList<String> games = new ArrayList<>();
         while (s.hasNextLine()) {
             games.add(s.nextLine());
         }
+        //Part 1
+//        int total = 0;
+//        int id = 0;
+//        for (String g : games) {
+//            id++;
+//            if (isPossible(parseGame(g))) {
+////                System.out.println("Game " + id + " is possible");
+//                total += id;
+//            }
+//        }
+//        System.out.println(total);
 
-        int total = 0;
+        //Part 2
+        int min = 0;
         for (String g : games) {
-            id++;
-            if (isPossible(parseGame(g))) {
-//                System.out.println("Game " + id + " is possible");
-                total += id;
-            }
+            min += minimum(parseGame(g));
+//            System.out.println("Game " + id + " minimum = " + minimum);
         }
-        System.out.println(total);
+        System.out.println(min);
     }
 
     private static HashMap<String, Integer> parseRound(String round) {
@@ -100,5 +108,45 @@ public class Day2 {
             }
         }
         return true;
+    }
+
+    private static int minimum(ArrayList<HashMap<String, Integer>> game) {
+        int red = 0;
+        int green = 0;
+        int blue = 0;
+        //Each round
+        for (int i = 0; i < game.size(); i++) {
+            if (game.get(i).containsKey(RED)) {
+                int current = game.get(i).get(RED);
+                if (red == 0) {
+                    red = current;
+                } else {
+                    if (current > red) {
+                        red = current;
+                    }
+                }
+            }
+            if (game.get(i).containsKey(GREEN)) {
+                int current = game.get(i).get(GREEN);
+                if (green == 0) {
+                    green = current;
+                } else {
+                    if (current > green) {
+                        green = current;
+                    }
+                }
+            }
+            if (game.get(i).containsKey(BLUE)) {
+                int current = game.get(i).get(BLUE);
+                if (blue == 0) {
+                    blue = current;
+                } else {
+                    if (current > blue) {
+                        blue = current;
+                    }
+                }
+            }
+        }
+        return red * green * blue;
     }
 }

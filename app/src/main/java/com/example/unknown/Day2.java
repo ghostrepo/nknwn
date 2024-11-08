@@ -55,7 +55,6 @@ public class Day2 {
                 output.put(BLUE, Integer.parseInt(c.replaceAll("\\D", "")));
             }
         }
-
         return output;
     }
 

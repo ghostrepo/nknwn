@@ -5,11 +5,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Main {
-    public static final String TAG = "Testing";
-
+public class Day1 {
     public static void main(String[] args) {
-        System.out.println("Welcome to Online IDE!! Happy Coding :)");
         File in = new File("com/example/unknown/input.txt");
 //        File out = null;
         ArrayList<Integer> output = new ArrayList<>();
@@ -39,13 +36,11 @@ public class Main {
     public static ArrayList<Integer> calibrate(File input) throws FileNotFoundException {
         ArrayList<Integer> intArray = new ArrayList<>();
         Scanner s = new Scanner(input);
-
         //Parse through each line
         while (s.hasNextLine()) {
             //One line of input
             char[] array = s.nextLine().toCharArray();
             ArrayList<Character> ch = new ArrayList<>();
-
             //Create integer array from each line of input
             for (char c : array) {
                 if (Character.isDigit(c)) {
@@ -66,7 +61,6 @@ public class Main {
             System.out.println("Value: " + cali);
             intArray.add(cali);
         }
-
         return intArray;
     }
 
